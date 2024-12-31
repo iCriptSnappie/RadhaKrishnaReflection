@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Radha Krishna Reflection</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        body {
+            background-color: #f1f1f1;
+            /* Soft greenish tone for tranquility */
+            font-family: 'Arial', sans-serif;
+            color: #2c3e50;
+            /* Darker text for readability */
+        }
+
+        .header {
+            color: #8e44ad;
+            /* Krishna-inspired purple */
+            font-family: 'Georgia', serif;
+        }
+
+        .header h1 {
+            font-weight: bold;
+            font-size: 3rem;
+            /* Larger font size for impact */
+        }
+
+        .form-label {
+            font-weight: bold;
+            color: #4a2f83;
+            /* Krishna's blue color for labels */
+        }
+
+        .form-control,
+        .form-select {
+            border-radius: 10px;
+            border: 2px solid #4a2f83;
+            /* Krishna’s blue */
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #8e44ad;
+            /* Krishna-inspired purple focus border */
+            box-shadow: 0 0 5px rgba(142, 68, 173, 0.5);
+        }
+
+        .btn-warning {
+            background-color: #ebc000;
+            /* A soothing green for the button */
+            border-color: #ebc000;
+        }
+
+        .btn-warning:hover {
+            background-color: #e7ce60;
+            border-color: #e7ce60;
+        }
+
+        .display-result {
+            background: linear-gradient(135deg, #8e44ad, #ebc000);
+            /* Beautiful gradient for a divine look */
+            border-radius: 20px;
+            /* Rounded corners for a soft look */
+            padding: 30px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.15);
+            /* Subtle shadow to make it stand out */
+            margin-top: 30px;
+            text-align: center;
+            color: #ffffff;
+            /* White text for better contrast on gradient */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out;
+        }
+
+        .display-result:hover {
+            background: linear-gradient(135deg, #ebc000, #8e44ad);
+            transform: scale(1.05);
+            /* Slight zoom effect when hovered */
+            box-shadow: 0px 15px 50px rgba(0, 0, 0, 0.2);
+            /* Increased shadow for hover effect */
+        }
+
+        .display-result h2 {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .message {
+            font-style: italic;
+            font-size: 1.1rem;
+            margin-top: 20px;
+            opacity: 0.9;
+            font-family: 'Georgia', serif;
+        }
+
+        .greating {
+            font-weight: bold;
+            color: #ebc000;
+            /* Green to represent peaceful vibes */
+        }
+
+        /* Initial Form Style */
+        .initial-form {
+            display: flex;
+        }
+
+        .result-form {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container py-5">
+        <div class="header text-center">
+            <h1>🙏🏻 Radhe Radhe 🙏🏻</h1>
+            <p>Experience the divine connection of Radha Krishna through self-reflection and inner peace.</p>
+        </div>
+
+        <div class="content">
+            <div class="row gy-2 mt-5 justify-content-center initial-form">
+                <div class="col-md-4">
+                    <label for="yourName" class="form-label">Enter Your Name:</label>
+                    <input type="text" name="yourName" id="yourName" class="form-control" placeholder="e.g., Meera">
+                </div>
+                <div class="col-md-4">
+                    <label for="moods" class="form-label">Select Your Current Mood:</label>
+                    <select name="moods" id="moods" class="form-select">
+                        <option value="">-- Choose Mood --</option>
+                        <option value="happy">Happy</option>
+                        <option value="peaceful">Peaceful</option>
+                        <option value="sad">Sad</option>
+                        <option value="seeking">Seeking Guidance</option>
+                        <option value="grateful">Grateful</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="thoughts" class="form-label">Select Your Thoughts:</label>
+                    <select name="thoughts" id="thoughts" class="form-select">
+                        <option value="">-- Choose Thoughts --</option>
+                        <option value="struggle">Struggle</option>
+                        <option value="success">Success</option>
+                        <option value="gratitude">Gratitude</option>
+                        <option value="reflection">Reflection</option>
+                    </select>
+                </div>
+                <div class="col-md-2 text-center">
+                    <button type="button" class="btn btn-warning">Hare Krishna</button>
+                </div>
+            </div>
+
+            <div class="display-result mt-5 result-form">
+                <h2 class="greating">--</h2>
+                <p class="message">Share your current mood and thoughts to receive a personalized reflection inspired by
+                    Radha Krishna's teachings.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.querySelector('.btn-warning').addEventListener('click', function () {
+            // Get selected values
+            const name = document.getElementById('yourName').value.trim();
+            const mood = document.getElementById('moods').value;
+            const thought = document.getElementById('thoughts').value;
+
+            // Check if all fields are filled
+            if (!name || !mood || !thought) {
+                alert("Please fill out all fields before submitting!");
+                return;
+            }
+
+            // Generate a random greating & message based on mood and thought
+            const randomMessage = generateMessage(mood, thought);
+            const randomGreeting = getRandomGreeting() + "! 🌸 ";
+            const randomSpritualMessage = getRandomSpiritualMessages();
+
+            // Update the result section
+            document.querySelector('.greating').textContent = randomGreeting + `Welcome, ${name}.`;
+            document.querySelector('.message').textContent = randomSpritualMessage + ". " + randomMessage + " 🙏🏻";
+
+            // Switch to result view
+            document.querySelector('.initial-form').style.display = 'none';
+            document.querySelector('.result-form').style.display = 'block';
+        });
+
+        // Function to generate a random message
+        function generateMessage(mood, thought) {
+            const messages = {
+                happy: {
+                    struggle: [
+                        "In struggles, find the light within. Like Krishna’s flute calming the storm, your happiness lies in faith and persistence. When life feels difficult, remember that every challenge is an opportunity to grow. Keep your heart open and trust that Krishna’s blessings will always guide you through the toughest times. The struggles are temporary, but the peace that comes from overcoming them is eternal.",
+                        "Even amidst trials, happiness can bloom like a lotus in mud, showing resilience and divine grace. Know that Krishna is always by your side, guiding you through the most turbulent waters. Your inner strength, nurtured by faith, will carry you through every storm. Every struggle is an opportunity for spiritual growth and a step closer to eternal bliss.",
+                        "Struggles may try to dim your light, but never forget that Krishna is the source of your strength. With each challenge, your spirit becomes stronger, and your happiness becomes more resilient. Trust in your journey, for Krishna’s love will always provide the peace you seek, no matter how hard the road may seem.",
+                        "The storm may roar, but your heart can remain peaceful. Struggles are a part of life’s grand design, and Krishna uses them to teach us the lessons of patience, faith, and resilience. With Krishna’s guidance, every challenge will turn into a stepping stone toward deeper happiness and spiritual awakening.",
+                        "When you face struggles, remember that Krishna is with you every step of the way. Like a loving teacher, He provides the lessons we need to grow. Each challenge is an invitation to discover the strength and joy that resides within you. Embrace your trials with love, and you will find peace in the process.",
+                        "In the depths of struggle, you are not alone. Krishna’s light shines brightly, even in the darkest moments. When you surrender your worries to Him, you will find peace that transcends the pain. Every hardship is an opportunity to come closer to the divine, and in this process, you will find lasting joy.",
+                        "Struggles are temporary, but the wisdom gained from them lasts forever. When life gets tough, turn your heart towards Krishna. Through Him, you will discover a happiness that is unwavering and eternal. Trust in the journey and know that every challenge is an opportunity to deepen your connection with the divine.",
+                        "The path to happiness is often paved with struggles. But through each struggle, Krishna’s divine grace guides you to a deeper understanding of life. Keep faith in the process, for with each challenge, your heart becomes more open to the boundless joy Krishna offers.",
+                        "Like the lotus that rises through the mud, your happiness will grow through adversity. Struggles are like the winds that strengthen the tree; they may bend you, but they will never break your spirit. Keep your heart rooted in Krishna’s love, and no struggle will ever diminish your joy.",
+                        "Even in the face of adversity, remember that Krishna’s grace flows through every moment. With each difficulty, you are being shaped into a stronger and wiser being. Your happiness doesn’t depend on external circumstances, but on the divine peace Krishna instills in your heart."
+                    ],
+                    success: [
+                        "Success is sweeter when shared with gratitude. Celebrate it, for Krishna walks with you. Every achievement, no matter how small, is a gift from the divine. With Krishna by your side, your success is not just a result of your efforts, but a manifestation of divine will. Keep your heart filled with gratitude, and the blessings will continue to flow.",
+                        "Your success is a reflection of your efforts and Krishna's blessings. Bask in its glow. Each step you take in life is supported by Krishna’s love, and every achievement is a sign of divine favor. Rejoice in your success, for it is the fruit of your dedication, faith, and divine grace.",
+                        "Success is not just the result of hard work, but the culmination of divine guidance. With Krishna’s blessings, every step forward is a blessing. Remember to share your joy with others and express gratitude for the divine hand that shapes your destiny. True success lies in recognizing the divine presence in all that you do.",
+                        "In the moments of success, always remember to offer gratitude to Krishna. Success is not an end, but a journey guided by divine wisdom. When you achieve greatness, you not only celebrate your efforts but also acknowledge the love and blessings that Krishna showers upon you, filling your life with peace and fulfillment.",
+                        "Success, when seen through the eyes of gratitude, becomes more meaningful. It’s not just about what you achieve, but about how you acknowledge the divine support you receive in every step of the journey. Krishna’s blessings make all things possible, and every success is a reminder of His eternal grace.",
+                        "True success is not measured by external accomplishments alone. It is about how much peace and joy you find in the process. Krishna’s guidance is the foundation of all success, and when you align your actions with divine will, success becomes a natural outcome. Celebrate your achievements with a heart full of gratitude and love.",
+                        "Every success, big or small, is a sign of Krishna’s favor. When you succeed, it’s not just your effort that shines, but the divine light that illuminates your path. Keep a humble heart and remember that true success is not about personal gain, but about serving others and living in harmony with divine purpose.",
+                        "As you celebrate your success, take a moment to thank Krishna for His blessings. Your achievements are a reflection of the divine love that supports and guides you. Let your heart remain humble, for success is not a destination, but a continuous journey filled with grace, gratitude, and divine presence.",
+                        "Success is a beautiful reminder of Krishna’s presence in your life. With every milestone you reach, acknowledge the divine hand that has guided you. True success is not about personal recognition but about fulfilling your dharma and living a life of love, peace, and service to others.",
+                        "The sweetness of success is doubled when shared with gratitude. Let your success inspire others, and always remember that Krishna’s blessings are the true source of your achievements. Keep your heart open to the divine, and let every success be an opportunity to express love and gratitude for the divine grace that sustains you."
+                    ],
+                    gratitude: [
+                        "Gratitude turns what we have into enough. Let your joy amplify Krishna’s divine blessings. When we practice gratitude, we open ourselves to receive more of Krishna’s love and grace. Gratitude is not just a feeling; it’s a way of living, recognizing the divine in every moment, and embracing the blessings that surround us.",
+                        "Expressing gratitude magnifies happiness, creating a connection with the divine that enriches the soul. By recognizing Krishna’s presence in every moment, we cultivate a heart full of joy and peace. Gratitude transforms every experience, turning the mundane into the miraculous, and the ordinary into the divine.",
+                        "Gratitude is the key to unlocking the flow of divine blessings. When you give thanks for the smallest of gifts, you open your heart to receive more of Krishna’s love. Let your gratitude shine, for in it lies the power to transform your life and bring you closer to the divine.",
+                        "A heart full of gratitude is a heart at peace. When we acknowledge Krishna’s grace in all that we have, we become more attuned to the divine blessings that surround us. Gratitude is a practice that fills our lives with joy, and it is the foundation of true happiness.",
+                        "Gratitude is not just a response to blessings; it is a practice that aligns us with Krishna’s divine will. By cultivating gratitude, we align our hearts with the divine, creating space for more love, peace, and joy. Remember, the more we are grateful, the more we invite Krishna’s grace into our lives.",
+                        "Gratitude brings us closer to Krishna by acknowledging His presence in every aspect of our lives. It transforms our challenges into opportunities for growth and our blessings into moments of divine connection. Let your gratitude deepen with each passing day, for it is the doorway to everlasting peace and divine joy.",
+                        "Gratitude is the most powerful prayer we can offer to Krishna. Every moment of appreciation brings us closer to the divine. By recognizing the countless blessings in our lives, we invite Krishna’s grace to flow more freely, filling our hearts with love, peace, and contentment. Let your life be a reflection of gratitude.",
+                        "A grateful heart is a peaceful heart. When we acknowledge Krishna’s blessings, no matter how small, we open the door to endless joy. Every moment of gratitude strengthens our connection with the divine and brings us closer to the eternal bliss that Krishna offers us each day.",
+                        "Gratitude is the highest form of love we can express to Krishna. When we are grateful, we recognize that every gift is from Him, and we honor the divine presence in our lives. By practicing gratitude, we invite more love, peace, and blessings into our hearts and our journey.",
+                        "Let gratitude fill your heart and soul. It is through gratitude that we realize the abundance of divine love that surrounds us. When we give thanks, we open ourselves to receiving even more of Krishna’s blessings. Let your life be a constant prayer of gratitude, and you will find peace and joy in every moment."
+                    ],
+                    reflection: [
+                        "Reflect on your joy; it mirrors Krishna's eternal bliss. Let it guide your path. When we take the time to reflect on the moments of happiness in our lives, we connect to the divine presence that brings us peace. Krishna’s love is always with us, guiding us toward a life of fulfillment and eternal joy.",
+                        "Inner joy reveals the truth of divine love. Reflect on it and strengthen your spirit. When we stop to reflect on the moments of peace and happiness in our lives, we realize that Krishna’s love is the source of our joy. Let this reflection deepen your connection to the divine, and you will find lasting peace.",
+                        "Reflection is the path to inner clarity and spiritual growth. When you take time to reflect on your journey, you align yourself with Krishna’s wisdom. Through reflection, you gain a deeper understanding of life’s purpose and find greater peace in your heart. Let reflection guide you to the light within.",
+                        "Through reflection, we connect to Krishna’s divine presence and find strength to face life’s challenges. When you reflect on your experiences with a heart full of love and gratitude, you open yourself to divine guidance. Trust in the wisdom of reflection and let it lead you toward peace and spiritual fulfillment.",
+                        "Reflection is the bridge between our thoughts and Krishna’s divine guidance. By taking the time to reflect, we can see the deeper meaning in every experience and recognize the hand of Krishna in all aspects of our lives. Through reflection, we find peace, clarity, and a deeper connection with the divine.",
+                        "To reflect is to connect with the divine within. Krishna’s presence is always with you, guiding your thoughts and actions. Through reflection, you learn to see the blessings in every moment and align your life with divine wisdom. Let reflection be a tool for spiritual growth and inner peace.",
+                        "Reflection allows us to understand our journey more deeply. When we reflect on our actions, thoughts, and feelings, we align ourselves with Krishna’s love. Every moment of reflection is an opportunity to grow spiritually and strengthen our connection to the divine light within.",
+                        "Reflect on the divine blessings in your life, for they are the signs of Krishna’s grace. Through reflection, we find peace in knowing that everything is part of a greater divine plan. Trust in the process of life, and allow reflection to deepen your connection to Krishna’s love and wisdom.",
+                        "Reflection is the key to unlocking the lessons Krishna wishes to teach us. By taking the time to reflect, we gain clarity and insight into the deeper truths of life. Let reflection be a sacred practice that brings you closer to Krishna and fills your heart with peace and understanding.",
+                        "As you reflect on your joy and your journey, remember that Krishna’s divine light is always guiding you. In every moment of reflection, you will discover a deeper connection to the divine and find peace, knowing that Krishna is always by your side, leading you toward a life filled with joy and fulfillment."
+                    ]
+                },
+                peaceful: {
+                    struggle: [
+                        "Peace during struggles shows Krishna's grace. Trust in Him to calm your storms and guide you through every challenge. The more you surrender to Krishna, the more His divine peace will surround you, offering comfort and strength when life feels heavy. Remember, Krishna's presence can turn every struggle into a lesson of inner calm and growth.",
+                        "Inner peace shines brightest in adversity. Like Krishna’s serenity, it brings clarity and strength. When facing struggles, remember that true peace is not the absence of problems, but the presence of Krishna’s divine energy in your heart. Let His teachings help you maintain calmness, even when the world around you seems chaotic.",
+                        "Struggles are part of the journey, but with Krishna's grace, peace will always prevail. Just as the river flows serenely around obstacles, peace surrounds you when you trust in Krishna. Keep faith that every challenge is an opportunity to strengthen your connection with the divine and maintain inner peace.",
+                        "The path of life is filled with struggles, but Krishna’s divine presence offers peace in every moment. When difficulties arise, turn your focus inward, surrendering to His will, and you will find solace. Krishna’s love is always there to help you navigate through the toughest storms with calm and serenity.",
+                        "In moments of struggle, remember that peace is your birthright. Krishna’s guidance will help you find calm in chaos. Embrace the inner peace that Krishna offers, knowing that every difficulty you face is temporary, and His divine grace will help you rise above it with strength and clarity.",
+                        "When faced with struggle, Krishna’s teachings offer the perfect solution: peace. By surrendering to His will, you will experience a peace that transcends all difficulties. The storm may rage around you, but the peace within you will remain undisturbed, reflecting Krishna’s divine presence in your life.",
+                        "Struggle is an inevitable part of life, but with Krishna’s presence, peace can always be found. Trust in His divine wisdom to guide you through difficult times, and remember that each struggle carries the potential for spiritual growth. Krishna's serenity will be your anchor during these challenging moments.",
+                        "In times of difficulty, it’s easy to lose sight of peace, but Krishna is always there, offering His calm. His divine presence is the source of the tranquility that guides you through the darkest times. By focusing on His love, you’ll find inner peace and the strength to overcome any obstacle.",
+                        "Peace amidst struggle is the gift Krishna gives those who trust in Him. When you face challenges, remember that He is guiding you with love. Embrace each moment with the understanding that Krishna’s peace will help you navigate through any storm, bringing clarity and inner strength.",
+                        "Through struggles, Krishna teaches you that peace is not something external, but an internal state that is always available. With every difficulty, Krishna offers an opportunity to strengthen your connection with Him. When you trust in His guidance, peace will naturally arise from within, no matter the external circumstances."
+                    ],
+                    success: [
+                        "Success achieved with peace reflects divine alignment. Bask in its serenity, for true success is not just about accomplishments, but about peace of mind and heart. When you succeed with Krishna’s blessings, your achievements are enriched by the tranquility that comes from knowing you are aligned with the divine path.",
+                        "Celebrate your achievements calmly, knowing Krishna’s grace is always with you. True success comes when your heart is peaceful, and your actions are aligned with divine will. Krishna blesses those who remain humble and content, even in success. Let His peace guide your success, and share it with others to spread His divine light.",
+                        "Success without peace is hollow, but with Krishna’s grace, success and peace go hand in hand. When you experience triumph, don’t forget to remain grounded and humble. Krishna's presence will ensure that your success is not just in material terms, but also in inner peace, which is the greatest form of success.",
+                        "True success lies in the balance of peace and achievement. As you celebrate your victories, remember that Krishna’s divine blessings bring peace into every moment. Success without peace is fleeting, but success accompanied by Krishna’s divine grace is eternal. Let your heart be peaceful as you walk the path of success.",
+                        "In every success, there is a deeper layer of peace that comes from Krishna’s divine blessings. Celebrate your achievements with a peaceful heart, knowing that Krishna's grace has led you to this moment. Success should not bring pride, but gratitude and humility, as Krishna’s love is the true source of your accomplishments.",
+                        "When success is achieved with peace, it brings true fulfillment. Krishna’s presence ensures that you don’t just celebrate the outer victory, but also feel the divine peace that fills your soul. Success blessed by Krishna allows you to grow spiritually while enjoying the fruits of your efforts with tranquility and contentment.",
+                        "Success is sweetest when it is accompanied by peace, for peace ensures that your heart remains humble, even in victory. With Krishna’s guidance, your success becomes not just a personal achievement but a divine blessing. Remain calm and grateful, as this peace will multiply the blessings in your life.",
+                        "In the journey of life, success without peace can feel empty. But with Krishna’s guidance, success brings true contentment. Celebrate each victory with peace in your heart, knowing that Krishna has led you to this moment. His grace ensures that your success becomes a source of peace, joy, and spiritual growth.",
+                        "Krishna’s divine blessings bring both success and peace. When you achieve something, remain humble and calm, for Krishna is the true source of your success. True success is not just measured by external achievements, but by the peace and contentment that fills your heart as you walk His path.",
+                        "Success achieved with Krishna’s grace brings peace, not just in the moment of achievement but for the entire journey. Remain peaceful even in success, for true fulfillment is found when you align your heart with Krishna’s divine will. Celebrate your success with a heart full of gratitude and peace."
+                    ],
+                    gratitude: [
+                        "Peace and gratitude together invite divine blessings into your life. Gratitude opens your heart to Krishna's love, and peace fills it with contentment. By practicing gratitude, you connect with Krishna on a deeper level, and His divine presence fills your life with calm, joy, and spiritual growth.",
+                        "Gratitude fosters inner calm, allowing Krishna’s light to shine within you. When you focus on all that you have, rather than what you lack, your heart becomes a vessel of peace. Krishna’s blessings flow freely when your heart is full of gratitude, and peace follows naturally in its wake.",
+                        "Gratitude brings peace to your soul, for it shifts your focus from desires to divine blessings. When you thank Krishna for His love and grace, peace fills your being, and your connection with Him grows stronger. Let gratitude be the source of your peace and the foundation of your spiritual journey.",
+                        "Gratitude is the key to peace. When you focus on all that Krishna has provided, your soul becomes calm and content. By embracing gratitude, you invite divine peace into your life. Krishna’s presence fills your heart with serenity, helping you navigate the ups and downs of life with grace and ease.",
+                        "When gratitude fills your heart, peace follows naturally. Krishna teaches that by appreciating the blessings in your life, you create space for His love and grace to shine through. In this peaceful state, you become more aligned with Krishna’s divine will, experiencing tranquility and joy no matter what life brings.",
+                        "A heart full of gratitude is a heart filled with peace. Krishna blesses those who are grateful, for they are in tune with His divine presence. Gratitude brings harmony within, allowing you to experience peace in every aspect of life. Let your heart overflow with gratitude, and Krishna’s peace will follow.",
+                        "Gratitude and peace go hand in hand. By thanking Krishna for His endless blessings, you cultivate a peaceful mind and soul. Gratitude shifts your focus from worldly desires to divine love, helping you align with Krishna’s teachings and experience His peace in every moment of your life.",
+                        "When you are grateful, peace enters your heart. Krishna’s love and blessings surround you, filling you with calm. A grateful heart recognizes the divine presence in all things, and as a result, peace becomes your constant companion. Thank Krishna for His infinite grace, and let His peace guide your journey.",
+                        "Peace arises from the heart of gratitude. When you give thanks for Krishna’s divine blessings, peace flows into every corner of your life. Let gratitude be the foundation of your spiritual practice, and Krishna’s peace will illuminate your path, bringing tranquility to your mind and soul.",
+                        "Gratitude opens the door to peace. When you appreciate Krishna’s grace, your heart becomes peaceful, and you begin to see the divine in every moment. Let your heart be full of gratitude for Krishna’s love, and His divine peace will fill your life, guiding you toward greater spiritual fulfillment."
+                    ],
+                    reflection: [
+                        "Reflection on peace reveals your connection to Krishna’s eternal calm. By turning inward, you tap into the peace that is always present within you. Krishna’s teachings guide you to discover this inner serenity, which is the source of true spiritual growth and tranquility in all aspects of life.",
+                        "True peace lies in the reflection of Krishna's love in your life. When you take time to reflect on your actions and thoughts, you align yourself with His divine will. This reflection brings clarity and peace, allowing you to move forward with a peaceful heart, knowing Krishna's love is always guiding you.",
+                        "Reflecting on your inner peace brings you closer to Krishna’s divine presence. Krishna’s love is the source of all peace, and by contemplating on it, you connect with His eternal calm. In moments of reflection, remember that His divine grace will always guide you toward peace, no matter the challenges you face.",
+                        "True peace comes from reflection on Krishna’s teachings and His divine presence in your life. When you reflect, you align your heart with Krishna’s love, finding serenity in every situation. His guidance helps you see that peace is not a destination, but a journey within that is guided by His light.",
+                        "Reflecting on Krishna’s love brings peace to the soul. The more you reflect on His divine nature, the more His peace enters your life. In moments of introspection, remember that Krishna’s presence is the ultimate source of tranquility, helping you navigate the complexities of life with calm and grace.",
+                        "The power of reflection lies in its ability to connect you with Krishna’s peace. By reflecting on His teachings, you invite His divine presence into your life, allowing His peace to guide you through every challenge. Let reflection deepen your relationship with Krishna, and His eternal calm will be your anchor.",
+                        "Reflection helps you uncover the peace that Krishna has already placed within you. By contemplating on His love, you create space for peace to grow. Krishna’s guidance ensures that as you reflect, you become more in tune with His divine will, allowing His peace to fill every aspect of your life.",
+                        "True peace is found through reflection, as it allows you to align with Krishna’s divine love. When you reflect on His teachings, your heart opens to His guidance, bringing clarity and serenity. Let reflection be the path that leads you to Krishna’s peace, as it transforms your soul and life.",
+                        "In the quiet moments of reflection, you will discover the peace that Krishna has always offered. By reflecting on His love, you create a deeper connection to His divine energy. Let these moments of reflection bring tranquility to your heart, knowing that Krishna’s peace is always with you, guiding your journey.",
+                        "Reflection on Krishna’s love helps you find the peace within that transcends all challenges. As you reflect, remember that Krishna’s presence is constant, and His peace is the foundation of everything. This reflection will bring clarity, serenity, and divine calm to your heart, helping you navigate life with peace."
+                    ]
+                },
+                sad: {
+                    struggle: [
+                        "In sadness, remember that Krishna is with you, guiding you through every storm. Your pain is not a sign of weakness but a moment for strength to emerge. Hold on to the belief that after the storm, Krishna's light will shine through, bringing peace to your heart.",
+                        "Tears are prayers too. Let Krishna's love heal your heart and restore hope. Every tear carries your deep connection to the divine, and Krishna understands every emotion you feel. Trust that, through your struggles, divine blessings will come.",
+                        "Sadness may cloud your heart, but Krishna’s wisdom will guide you through. It is in our darkest times that Krishna’s grace is most profound. Know that even the struggle has a purpose, and Krishna’s plan is always unfolding in the best way for you.",
+                        "Though sadness fills your heart, Krishna’s love is never far away. Your struggle is temporary, and the peace Krishna offers is eternal. Keep your heart open, for He is guiding you even when you don’t see the way.",
+                        "In the midst of sorrow, remember Krishna is with you, gently carrying you through each moment. Every struggle you face is an opportunity for divine growth. Trust the process, for Krishna will turn your pain into wisdom and joy.",
+                        "The struggle in sadness is a part of life’s divine play. Krishna is present in your pain, offering solace and guiding you back to peace. Surrender your sorrow to Him, and He will help you find strength and purpose in the struggle.",
+                        "Sadness is a lesson wrapped in love, a moment where Krishna holds your hand through the difficulty. Your tears are not in vain; they are watering the seeds of inner peace and growth, nurtured by Krishna’s eternal grace.",
+                        "In the depths of sadness, take comfort in knowing that Krishna understands your struggle. Every hardship you endure builds your resilience. Keep faith in His plan, for your strength will grow as you move through the challenge.",
+                        "Sadness may seem overwhelming, but it is temporary. Krishna’s love is always constant. In your moments of struggle, lean on His grace, for it will uplift you and show you the light at the end of the tunnel.",
+                        "Sadness comes to teach us lessons we cannot learn in joy. Krishna’s love is the constant in every moment of pain. Allow your struggles to transform into divine understanding, knowing that Krishna’s grace will guide you to healing."
+                    ],
+                    success: [
+                        "Even in sadness, your achievements remind you of Krishna’s unwavering faith in you. Success is a reflection of your inner strength, nurtured by Krishna's love. Every accomplishment, big or small, is a step toward spiritual growth and divine fulfillment.",
+                        "Success amidst sadness shows resilience and divine strength within you. Krishna’s blessings are present in every victory, no matter how small. Remember, even when you feel down, Krishna’s guidance has led you to success, and His love will always support you.",
+                        "When sadness surrounds you, take a moment to reflect on the success you’ve achieved. Krishna’s presence in your life is a testament to His love and faith in your potential. Even in difficult times, you have the strength to triumph.",
+                        "In your sadness, celebrate the success you have earned. Krishna’s grace is the source of every victory. Let your achievements remind you that Krishna’s love is with you, and even in sorrow, you are destined for greatness.",
+                        "Success in the face of sadness is a powerful reminder that Krishna’s plan for you is unfolding. No emotion, not even sorrow, can diminish your strength. Krishna walks with you through every challenge, and your success is proof of His divine support.",
+                        "In moments of sadness, remember that your success is a testament to Krishna’s support. You are achieving greatness not just despite the challenges, but because of them. Every step forward is a gift from Krishna’s boundless love and wisdom.",
+                        "Sadness cannot take away the success that Krishna has blessed you with. Your achievements are a reflection of your perseverance, a strength that Krishna nurtures in you. Keep trusting in His guidance as you continue to walk the path of success.",
+                        "In times of sorrow, look at your success as a beacon of Krishna’s grace. Your journey has not been easy, but Krishna has always been by your side, helping you overcome obstacles. Celebrate your progress and stay grateful for His love.",
+                        "Success isn’t just about achieving goals, it’s about learning and growing through every experience, including sadness. Krishna’s love shapes every moment of success, filling your heart with peace and gratitude, even during challenging times.",
+                        "Success amidst sadness is the true reflection of Krishna’s strength within you. It shows that no matter what difficulties you face, Krishna's blessings will always guide you towards victory. Keep your heart open to His divine grace and let it lead you."
+                    ],
+                    gratitude: [
+                        "Gratitude heals sadness, turning pain into lessons and struggles into wisdom. In moments of sadness, pause and give thanks for Krishna’s guidance. The very act of gratitude shifts your perspective and transforms your sorrow into peace.",
+                        "In sadness, gratitude can shift your perspective and rekindle hope. Krishna’s blessings are often hidden in the hardest times. By focusing on what you are grateful for, you open your heart to Krishna’s love and healing presence.",
+                        "Gratitude in the face of sadness is the key to transformation. It reminds you that even in hardship, Krishna’s grace is present. Reflect on the blessings you have, no matter how small, and trust that Krishna will lead you to greater peace.",
+                        "Sadness may cloud your heart, but gratitude is the light that cuts through. By focusing on Krishna’s many blessings, even in the darkest moments, you can find peace and healing. Allow gratitude to transform your sadness into divine strength.",
+                        "Even in sadness, gratitude can restore your heart. By acknowledging Krishna’s love, you find a sense of peace that transcends sorrow. Let your heart overflow with thankfulness, for in gratitude, you open the door to divine healing.",
+                        "In your sadness, take a moment to be grateful for Krishna’s unwavering presence. Gratitude helps you see that there are lessons even in the hardest moments, and each lesson is a step closer to inner peace and spiritual growth.",
+                        "Gratitude is the antidote to sadness. It is Krishna’s reminder that even in our darkest moments, there is light. By practicing gratitude, you begin to shift your energy and invite divine love into your life, filling your heart with peace.",
+                        "Sadness can be healed with gratitude. Reflect on all that Krishna has provided, from the smallest blessings to the greatest miracles. Each moment of thankfulness allows you to see the divine in every experience, and your heart will fill with Krishna’s peace.",
+                        "In times of sadness, remember that Krishna’s love is always present, and gratitude is the path to healing. When you shift your focus from what is missing to what you have, you invite peace and divine presence into your life.",
+                        "Gratitude turns sadness into serenity. Krishna’s love is a constant source of healing, and by giving thanks for His blessings, you begin to see beyond your sorrow. Let gratitude guide you to peace, joy, and a deeper connection with Krishna."
+                    ],
+                    reflection: [
+                        "Sadness is a moment for reflection. Let Krishna’s love guide you to clarity. In this quiet time, trust that Krishna is teaching you something valuable. Each sorrow holds a lesson that brings you closer to divine understanding and peace.",
+                        "Reflect on your sadness; it’s a bridge to understanding and divine growth. Krishna’s love is always present, helping you gain wisdom from your experiences. Through reflection, you will find the strength to move forward and grow spiritually.",
+                        "In sadness, reflection brings clarity. Allow Krishna’s guidance to help you understand the deeper meaning behind your struggles. Through this process, you will gain insight into your inner self and the lessons Krishna is teaching you in this moment.",
+                        "Reflection in sadness can bring profound peace. It allows you to connect with Krishna’s divine wisdom, which transforms sorrow into understanding. Take time to reflect on your experiences, and you will discover the peace that Krishna provides in every moment.",
+                        "Sadness is a moment to pause and reflect on life’s greater purpose. Krishna’s love will show you the way forward, bringing understanding and healing through quiet reflection. Trust that your current struggles will lead you to a deeper connection with the divine.",
+                        "Reflect on your sadness with an open heart. Krishna’s love is there, guiding you through every thought. It is through reflection that you begin to see the blessings hidden within your sorrow, bringing you peace and strength for the journey ahead.",
+                        "Reflection is a powerful tool for healing. When sadness fills your heart, pause and reflect on Krishna’s love. By understanding the deeper meaning of your emotions, you will find the strength to heal and move forward on your spiritual path.",
+                        "Sadness is an opportunity for introspection. Reflect on the lessons Krishna is teaching you. This moment of reflection can bring clarity, peace, and insight, helping you see beyond the pain and into the divine growth that Krishna has in store for you.",
+                        "In moments of sadness, reflection helps you connect with Krishna’s wisdom. Every challenge you face is a part of a greater plan. Through reflection, you can begin to understand the purpose of your sorrow and trust in Krishna’s divine guidance.",
+                        "Reflection on sadness allows you to see the bigger picture. Krishna’s love transforms every moment of sorrow into an opportunity for growth. Trust that your feelings are valid, and through reflection, you will find the peace that Krishna has promised."
+                    ]
+                },
+                seeking: {
+                    struggle: [
+                        "In struggles, seek Krishna’s wisdom. Answers come to those who seek with faith. Even in the darkest moments, trust that Krishna is guiding your path. His divine wisdom will light the way, leading you to strength and understanding, allowing you to overcome any obstacle with courage and clarity.",
+                        "Every challenge is an opportunity to seek and find Krishna's divine guidance. The difficulties you face are temporary, but the wisdom you gain from seeking Krishna’s teachings will stay with you forever. Approach every struggle with the belief that Krishna is beside you, offering His love and support.",
+                        "Seek Krishna in your struggles, for His love is the greatest source of strength. With each difficulty you face, His divine presence will help you discover new dimensions of your soul. Keep faith, for in seeking Krishna, you find your true purpose and inner peace.",
+                        "In moments of hardship, seek Krishna’s wisdom and His presence. Trust that Krishna’s divine grace will not only help you face struggles but will transform them into lessons of growth. The more you seek, the more you find peace and comfort in His eternal guidance.",
+                        "Struggles are a call for divine connection. Seek Krishna’s teachings in these moments of turmoil. He listens to every prayer, understands every sorrow, and provides solutions that may not always be clear at first, but will always lead you to the right path when you have faith.",
+                        "When life gets difficult, seek Krishna. His wisdom will not fail you. He will guide you, even when you feel lost or uncertain. Through faith and devotion, the struggles will become stepping stones to greater strength, and Krishna’s love will help you emerge victorious.",
+                        "Every struggle is an invitation to seek Krishna’s divine grace. In times of despair, remember that Krishna’s blessings are abundant for those who seek with a sincere heart. Let your challenges be opportunities to grow spiritually, and know that Krishna’s guidance will carry you through.",
+                        "Seek Krishna's guidance when you find yourself lost in the struggles of life. With each challenge you face, Krishna offers His divine wisdom, helping you build the resilience needed to rise above. His presence brings peace, and through Him, you can conquer even the greatest obstacles.",
+                        "In the midst of struggle, seek Krishna, for He is the supreme source of strength. Every difficulty you face is an opportunity to deepen your faith in Him. Trust that Krishna’s wisdom will open your eyes to solutions that are beyond your understanding, leading you to ultimate peace.",
+                        "When you feel overwhelmed by life's struggles, turn to Krishna. Seek His guidance, for He is always near to those who sincerely ask for help. Trust in His divine wisdom, which will transform your struggles into valuable lessons that bring you closer to Him and to your true self."
+                    ],
+                    success: [
+                        "Seek Krishna’s blessings in your success, for He walks with you. Acknowledge the divine hand behind every accomplishment, and express your gratitude for His guidance. True success is not just about achieving goals, but about walking the righteous path with Krishna’s grace, ensuring peace and fulfillment.",
+                        "Success is a journey; continue seeking Krishna’s wisdom to guide your steps. Every achievement is a result of divine blessings and effort. Remember that Krishna’s presence is with you in every moment of triumph, and it is His guidance that shapes every step towards your success.",
+                        "In every success, seek Krishna’s blessings with a humble heart. Acknowledge that Krishna’s grace is what makes every triumph possible. He provides not only the strength to achieve but also the wisdom to remain grounded and humble. True success is honoring Him in all that you do.",
+                        "Seek Krishna in your moments of success, for He is the source of true achievement. Success, when blessed by Krishna, is not just a material gain, but a fulfillment of the soul’s purpose. Let your success reflect your gratitude for Krishna’s guidance and divine presence in your life.",
+                        "Every success you experience is a result of Krishna’s blessings. Keep seeking Him through your victories, remembering that His love and grace are the true foundation of your achievements. May your success inspire you to serve others and lead a life of humility, compassion, and gratitude to Krishna.",
+                        "Success without Krishna is incomplete. As you achieve your goals, continue seeking Krishna’s wisdom to keep you grounded. It is His guidance that ensures you remain humble and compassionate. True success is not just in the achievements but in the grace of Krishna that shapes them.",
+                        "Seek Krishna’s blessings in your success, for He is the true architect of every victory. With every step towards success, acknowledge Krishna's hand that guides you. His love and wisdom lead you to not just material gains but to spiritual enlightenment and eternal peace.",
+                        "In the pursuit of success, always seek Krishna’s guidance. True success is aligned with Krishna’s will, and it comes with the responsibility to remain humble. As you succeed, reflect on Krishna’s teachings, and continue seeking His wisdom to navigate through challenges with grace and humility.",
+                        "Success is not just about reaching the destination; it’s about seeking Krishna’s presence in the journey. As you achieve your goals, remember that Krishna’s grace has paved the way. Seek His wisdom to ensure that success is not just worldly but a reflection of divine purpose and peace.",
+                        "Seek Krishna’s blessings in your successes, for they are not just your own but His divine grace at work. Every achievement is an opportunity to deepen your relationship with Krishna, who leads you not only to material success but also to spiritual fulfillment and everlasting peace."
+                    ],
+                    gratitude: [
+                        "Seeking answers begins with gratitude. A thankful heart attracts Krishna’s guidance. When you are grateful, your soul opens to receiving Krishna’s divine wisdom. Gratitude is the key that unlocks the doors to spiritual growth and deeper connection with the Divine. Embrace gratitude, and Krishna’s light will shine brighter in your life.",
+                        "Seek Krishna’s love through gratitude. It opens doors to divine understanding. A heart full of gratitude draws Krishna closer to you. By acknowledging His blessings, you invite His presence into every aspect of your life. Gratitude turns every moment into a blessing, revealing Krishna’s divine grace in your life.",
+                        "Gratitude is the foundation of spiritual growth. Seek Krishna’s guidance with a thankful heart, and watch as your life transforms. The more you appreciate His divine presence, the more Krishna reveals His wisdom, filling your life with peace, joy, and eternal love. Keep your heart open to gratitude and grace.",
+                        "A grateful heart opens the doors to Krishna’s blessings. Seek His presence through gratitude, and you will find peace in every moment. Krishna’s love is abundant for those who appreciate the simple gifts of life. Let your gratitude guide you towards greater spiritual connection and divine understanding.",
+                        "Gratitude leads to divine understanding. Seek Krishna’s love with a heart full of thanks, and you will experience His blessings in every form. When you are grateful, you attract positivity and peace into your life. Gratitude is a powerful force that deepens your connection to Krishna and His divine wisdom.",
+                        "Gratitude is a doorway to deeper spiritual experiences. Seek Krishna’s love with a heart full of appreciation, and He will guide you to greater understanding and wisdom. When you embrace gratitude, you become more receptive to Krishna’s teachings, allowing His divine light to illuminate your path in all circumstances.",
+                        "Seek Krishna’s guidance through a heart full of gratitude. The more you express thanks for His blessings, the more He reveals His wisdom. Gratitude opens the heart to receiving divine knowledge, allowing you to find peace, joy, and understanding in all areas of life. Embrace gratitude and Krishna’s love.",
+                        "A thankful heart is the pathway to divine wisdom. Seek Krishna’s blessings through gratitude, and you will discover His presence in every corner of your life. Gratitude enhances your spiritual journey, allowing you to grow closer to Krishna and experience His love and teachings more fully.",
+                        "Gratitude attracts divine love and wisdom. Seek Krishna’s blessings with a thankful heart, and you will find that His guidance leads you to peace and fulfillment. By embracing gratitude, you invite Krishna’s teachings into your life, allowing them to shape your path and deepen your spiritual connection.",
+                        "Gratitude turns struggles into blessings and ordinary moments into divine experiences. Seek Krishna through gratitude, and you will open your heart to His wisdom. Every moment spent in appreciation of Krishna’s grace brings you closer to understanding His divine nature, filling your life with peace and spiritual growth."
+                    ],
+                    reflection: [
+                        "Reflection leads to clarity. Seek Krishna’s light to illuminate your path. Through reflection, you gain the wisdom to understand your purpose in this world. The more you reflect on Krishna’s teachings, the clearer your path becomes, and His divine light shines brighter, guiding you towards peace and fulfillment.",
+                        "Seek the truth within. Reflection brings Krishna’s teachings closer to your soul. By reflecting on your thoughts and actions, you invite Krishna’s wisdom into your life. True reflection is a practice that strengthens your connection to Krishna, helping you understand His divine purpose for you and your spiritual journey.",
+                        "Reflection is the key to spiritual growth. Seek Krishna’s guidance in your moments of contemplation. By taking the time to reflect on your actions, you allow Krishna’s wisdom to guide you towards the right path. Reflection enables you to understand your life’s purpose, leading to deeper peace and spiritual fulfillment.",
+                        "Through reflection, you come closer to Krishna’s truth. Seek Krishna’s wisdom as you reflect on your thoughts and actions. This process of self-awareness and divine connection strengthens your relationship with Krishna, allowing you to grow spiritually and align your actions with His teachings, bringing peace and clarity to your life.",
+                        "Reflection helps you understand the divine purpose behind your struggles and successes. Seek Krishna’s light in your moments of contemplation. As you reflect on your life, you begin to see His divine presence in everything, helping you make sense of life’s challenges and find peace in His teachings.",
+                        "Seek Krishna’s wisdom through reflection. The more you reflect on His divine nature, the closer you come to understanding your purpose. Krishna’s teachings, when meditated upon, reveal profound truths that guide your soul towards eternal peace, allowing you to align your life with divine grace and wisdom.",
+                        "Reflection brings clarity and peace. Seek Krishna’s light as you ponder your journey. With every moment of reflection, Krishna’s guidance becomes more evident, illuminating the path towards spiritual fulfillment. Through deep contemplation, you find divine understanding and experience a profound connection to Krishna’s eternal teachings.",
+                        "Seek Krishna through reflection. In quiet moments of contemplation, you gain insight into the divine purpose of your life. Reflection brings you closer to Krishna’s teachings, allowing you to understand your life’s mission and navigate challenges with a heart full of faith and peace.",
+                        "Reflection strengthens your spiritual connection. Seek Krishna’s guidance during moments of self-reflection, allowing His wisdom to shape your thoughts and actions. In these moments, you gain a deeper understanding of Krishna’s divine will, bringing clarity to your decisions and peace to your heart.",
+                        "Through reflection, you discover Krishna’s divine presence in your life. Seek His wisdom, and through introspection, you will uncover the deeper meaning of your experiences. Reflection is a powerful tool for spiritual growth, helping you align your actions with Krishna’s teachings and finding peace in His divine guidance."
+                    ]
+                },
+                grateful: {
+                    struggle: [
+                        "Gratitude during struggles shows strength. In moments of difficulty, remember that Krishna's wisdom is embedded in every challenge. Thank Krishna for the lessons hidden within, for they are the stepping stones toward your spiritual growth and ultimate peace. Through gratitude, you find the resilience to overcome any obstacle.",
+                        "In tough times, gratitude is the anchor connecting you to Krishna’s love. When life feels heavy, take a moment to acknowledge the small blessings around you. Even in struggle, Krishna’s presence is near. Let gratitude fill your heart and guide you to a place of inner peace and hope.",
+                        "Struggles are life’s lessons in disguise. Thank Krishna for the strength to persevere, for the wisdom hidden within each hardship. Every challenge is an opportunity to grow closer to Krishna. Embrace your struggles with gratitude, for they are part of your divine journey.",
+                        "In the midst of struggle, gratitude allows you to see beyond the pain. Thank Krishna for each trial, as they shape your soul and bring you closer to His eternal love. With a heart full of gratitude, you can find peace even in the most difficult moments.",
+                        "When life feels overwhelming, gratitude becomes the lens through which you can find peace. Krishna’s presence is most felt during challenging times. Express gratitude for the strength to endure and the lessons that will lead you to a brighter tomorrow.",
+                        "Even in times of struggle, gratitude helps to reframe the situation. Acknowledge Krishna’s guiding hand and trust that these challenges will lead you to growth. The path to peace is often through difficulties, and gratitude lightens the way.",
+                        "Gratitude in times of difficulty is a powerful reminder of Krishna’s unwavering support. Even when you face hardships, knowing that every challenge is for your betterment gives you peace. Thank Krishna for the opportunity to grow stronger and more connected to His divine love.",
+                        "During struggles, focus on gratitude to shift your perspective. Each challenge is an opportunity to align with Krishna's teachings. Thank Krishna for the lessons learned, for they will strengthen your heart and soul, guiding you through every trial.",
+                        "In the face of adversity, gratitude empowers you to find peace. Krishna's love is always with you, even in your toughest moments. Express gratitude for His divine presence, which helps you overcome obstacles with grace and strength.",
+                        "Gratitude transforms struggles into opportunities for spiritual growth. Thank Krishna for each difficulty, for they are designed to bring you closer to His eternal love. Through gratitude, you can find strength and peace, even when life is challenging."
+                    ],
+                    success: [
+                        "Celebrate success with gratitude; it magnifies Krishna’s blessings in your life. Every achievement is a gift from Krishna, a reflection of His grace. Thank Him for the strength, determination, and wisdom that led you to this success. True success is not only measured by accomplishments but by the gratitude we feel for Krishna’s guidance.",
+                        "Gratitude for your success creates space for more divine abundance. Every success is a step closer to Krishna's plan for you. A grateful heart welcomes more blessings, and every achievement becomes a testimony to Krishna's love and support in your life.",
+                        "Success, when celebrated with gratitude, brings a deeper sense of fulfillment. Krishna’s blessings are reflected in every step you take toward achieving your goals. Thank Him for His divine guidance, and let your success be a reminder of His eternal grace.",
+                        "Success is not just the result of your efforts, but a reflection of Krishna's blessings. Celebrate with gratitude, for every achievement is a gift from Him. As you rejoice in your success, remember to thank Krishna for His unwavering support and divine guidance.",
+                        "When success comes, it is important to express gratitude. Krishna’s grace has been with you every step of the way. Celebrate your accomplishments with humility and thank Him for providing you with the strength, wisdom, and opportunities to achieve your goals.",
+                        "True success is found in gratitude. Thank Krishna for every moment that led to your success, for each step taken in faith. When you celebrate your achievements with gratitude, you open the door to even greater blessings and divine abundance in your life.",
+                        "Success is a reflection of Krishna's blessings in your life. Celebrate every victory, big or small, with gratitude in your heart. The more grateful you are for your accomplishments, the more Krishna will bless you with His divine grace and abundance.",
+                        "Gratitude amplifies the sweetness of success. Krishna’s presence is with you in every triumph, and acknowledging His role in your achievements brings even more blessings. Thank Krishna for the wisdom, strength, and guidance He provided on your journey to success.",
+                        "With every success, there is an opportunity to deepen your connection with Krishna. Celebrate with a grateful heart, knowing that Krishna’s divine grace has been the driving force behind every achievement. Let gratitude for your success bring you closer to His eternal love.",
+                        "Success is a reflection of divine blessings, and gratitude is the key to unlocking even more blessings. Thank Krishna for the success you've achieved, for every step of the journey has been guided by His wisdom and love. Your success is a testament to His grace."
+                    ],
+                    gratitude: [
+                        "Gratitude is a circle of giving and receiving, aligning you with Krishna’s love. The more you give thanks for the blessings in your life, the more you open yourself to receive His grace. A grateful heart is always in tune with Krishna’s divine presence and love.",
+                        "A grateful heart is a magnet for miracles and Krishna’s eternal grace. When you practice gratitude, you invite Krishna’s blessings into every area of your life. Let your gratitude be a reminder of Krishna’s constant presence and His love that surrounds you.",
+                        "Gratitude is the language of the soul. The more you express it, the deeper your connection with Krishna becomes. Every moment of gratitude strengthens your faith and draws you closer to Krishna’s divine energy. Thank Krishna for His love and the blessings He bestows upon you.",
+                        "To live a life of gratitude is to live in alignment with Krishna’s divine will. Thank Him for the many blessings He has given you, and allow your heart to overflow with love and appreciation. Gratitude transforms your life and opens the door to endless blessings.",
+                        "Gratitude connects you to Krishna’s eternal love. The more you give thanks for what you have, the more Krishna will bless you with abundance. A heart filled with gratitude radiates peace, love, and joy, allowing Krishna’s presence to flow through you.",
+                        "Gratitude is the key to a peaceful and abundant life. By expressing gratitude, you open your heart to Krishna’s love and blessings. Every act of thankfulness brings you closer to divine joy and strengthens your connection with Krishna’s eternal grace.",
+                        "A heart full of gratitude is a heart that is open to receiving Krishna’s love. When you cultivate gratitude in your life, you invite divine blessings into every aspect of your journey. Let your heart be filled with thanks, and watch as Krishna’s grace unfolds before you.",
+                        "Gratitude is a powerful practice that aligns your spirit with Krishna’s teachings. The more you give thanks for the gifts in your life, the more you will receive. Krishna’s love flows through a grateful heart, bringing peace, prosperity, and divine blessings.",
+                        "Gratitude transforms your perspective, allowing you to see Krishna’s hand in every moment of your life. When you focus on the blessings you’ve received, you create space for even greater blessings. Thank Krishna for His love, and let your gratitude lead you to deeper spiritual growth.",
+                        "Living a life of gratitude is the path to true happiness. By acknowledging Krishna’s blessings, you open your heart to receive more of His divine love. A grateful heart attracts peace, abundance, and the wisdom of Krishna’s teachings, leading you to a life of fulfillment."
+                    ],
+                    reflection: [
+                        "Reflect on gratitude; it deepens your connection to Krishna’s divine plan. By looking within and acknowledging the blessings you have, you align yourself with Krishna’s wisdom. Gratitude brings clarity and helps you understand the deeper meaning of your life’s experiences.",
+                        "Reflection on gratitude transforms your life, aligning it with Krishna's teachings. When you take time to reflect on all the blessings you have received, you grow closer to Krishna’s eternal love. Gratitude brings peace and clarity, guiding you on the path of righteousness.",
+                        "In moments of reflection, remember to be grateful. Gratitude shifts your perspective, allowing you to see Krishna’s hand in everything. As you reflect on your life, notice how His love has shaped your journey. Gratitude opens your heart to His divine teachings.",
+                        "Reflecting on gratitude allows you to see the divine plan unfolding in your life. Krishna’s wisdom is present in every experience. By practicing gratitude, you gain the insight to understand the greater purpose behind each moment and each lesson He offers.",
+                        "When you reflect on your blessings, you connect more deeply with Krishna’s teachings. Gratitude opens your heart to His love and guidance. The more you reflect on the divine gifts in your life, the more you align with Krishna’s eternal truth and grace.",
+                        "Reflection on gratitude helps you recognize Krishna’s presence in every part of your life. By focusing on the blessings you have, you deepen your connection with the divine. Gratitude transforms your heart and allows you to see the world through Krishna’s loving eyes.",
+                        "Reflection helps you appreciate the abundance in your life. When you reflect on your blessings with gratitude, you realize that Krishna has always been guiding you. This practice brings peace to your heart and aligns you with His divine will.",
+                        "Gratitude brings clarity to your reflections. By looking within and acknowledging all that you have received, you align your life with Krishna’s divine teachings. This reflection leads to a deeper understanding of His love and helps you move closer to spiritual fulfillment.",
+                        "Through reflection, you come to understand the depth of Krishna’s love and grace. Gratitude helps you see the blessings that have always been present, guiding you on your spiritual journey. When you reflect with a grateful heart, you open the door to divine peace.",
+                        "Reflection on gratitude nurtures your spiritual growth. By taking time to acknowledge Krishna’s blessings, you connect with His eternal love and wisdom. Gratitude reveals the divine plan in your life, bringing peace, understanding, and alignment with Krishna’s teachings."
+                    ]
+                }
+
+            };
+
+            const availableMessages = messages[mood]?.[thought];
+            if (availableMessages && availableMessages.length > 0) {
+                return availableMessages[Math.floor(Math.random() * availableMessages.length)];
+            }
+
+            return "Keep your connection to Krishna strong; divine blessings are always near!";
+        }
+
+        // Function to select a random greeting
+        function getRandomGreeting() {
+            const greatings = [
+                "Hare Krishna",
+                "Jai Shree Krishna",
+                "Radhe Radhe",
+                "Shree Radhe",
+                "Jai Jai Shree Radhe",
+                "Jai Shree Radhe"
+            ];
+            const randomIndex = Math.floor(Math.random() * greatings.length);
+            return greatings[randomIndex];
+        }
+
+        // Function to select a random spritual message
+        function getRandomSpiritualMessages() {
+            const spiritualMessages = [
+                "May Krishna's divine light guide your path.",
+                "May the divine grace of Krishna illuminate your journey.",
+                "Let Krishna's light shine brightly on your path, leading you to eternal peace.",
+                "May Krishna's blessings guide your every step and bring you tranquility.",
+                "With Krishna's light to guide you, may you walk in harmony and bliss.",
+                "May Krishna's grace light your way, bringing clarity and peace to your heart.",
+                "May the eternal light of Krishna lead you towards righteousness and happiness.",
+                "In every step you take, may Krishna's divine light illuminate your soul.",
+                "Let the light of Krishna's wisdom guide your thoughts and actions.",
+                "May Krishna's radiant presence fill your life with peace, love, and divine guidance."
+            ];
+            const randomIndex = Math.floor(Math.random() * spiritualMessages.length);
+            return spiritualMessages[randomIndex];
+        }
+    </script>
+</body>
+
+</html>
