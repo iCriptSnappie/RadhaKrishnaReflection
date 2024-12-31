@@ -180,7 +180,7 @@
 <body>
     <div class="container my-5">
         <div class="header text-center">
-            <h1>🙏🏻 Radhe Radhe 🙏🏻</h1>
+            <h1></h1>
             <p>Experience the divine connection of Radha Krishna through self-reflection and inner peace.</p>
         </div>
 
@@ -231,6 +231,9 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+
+        document.querySelector(".header h1").textContent = `🙏🏻 ${getRandomGreeting()} 🙏🏻`;
+
         document.querySelector('.btn-warning').addEventListener('click', function () {
             // Get selected values
             const name = document.getElementById('yourName').value.trim();
